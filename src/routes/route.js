@@ -40,4 +40,90 @@ router.get('/student-details/:name', function(req, res){
     res.send('Dummy response')
 })
 
+//--------------------------------Assignment------------------------------------------------------------------//
+
+//1st
+router.get('/movies', (req, res)=>{
+    let arrofmov = ["Rang de basanti", "The shining", "Lord of the rings", "Batman begins", "Rakshya bandhan", "Loveyatri"]
+     res.send(arrofmov)
+})
+
+//2nd
+// router.get('/movies/:indexNumber', (req,res)=>{
+//     let copy = req.params;
+//     let index = Number(copy.indexNumber);
+//     let arrofmov = ["Rang de basanti", "The shining", "Lord of the rings", "Batman begins", "Rakshya bandhan", "Loveyatri"]
+//     res.send(arrofmov[index])
+// })
+
+//3rd
+router.get('/movies/:indexNumber', (req,res)=>{
+    let copy = req.params;
+    let index = Number(copy.indexNumber);
+    let arrofmov1 = ["Rang de basanti", "The shining", "Lord of the rings", "Batman begins", "Rakshya bandhan", "Loveyatri"]
+
+    if(index>arrofmov1.length-1){
+        res.send("Please use a valid index")
+    }else{
+        res.send(arrofmov1[index])
+    }
+    
+})
+
+
+//4th
+router.get('/films', (req,res)=>{
+    let objofmov = [ {
+        id: 1,
+        name: "The Shining"
+       }, {
+        id: 2,
+        name: "Incendies"
+       }, {
+        id: 3,
+        name: "Rang de Basanti"
+       }, {
+        id: 4,
+        name: "Finding Nemo"
+       },{
+        id: 5,
+        name: "Rakshya bandhan"
+       },{
+        id: 6,
+        name: "Loveyatri"
+       }]
+    res.send(objofmov)
+})
+
+// 5th
+router.get('/films/:filmId', (req,res)=>{
+    let objofmov = [ {
+        id: 1,
+        name: "The Shining"
+       }, {
+        id: 2,
+        name: "Incendies"
+       }, {
+        id: 3,
+        name: "Rang de Basanti"
+       }, {
+        id: 4,
+        name: "Finding Nemo"
+       },{
+        id: 5,
+        name: "Rakshya bandhan"
+       },{
+        id: 6,
+        name: "Loveyatri"
+       }]
+    let filmidobj = req.params;
+    let filmid = Number(filmidobj.filmId)
+
+    if(filmid>objofmov.length-1){
+        res.send("No movie exists with this id")
+    }else{
+        res.send(objofmov[filmid].name)
+    }
+})
+
 module.exports = router;
