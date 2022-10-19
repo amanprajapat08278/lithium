@@ -29,14 +29,36 @@ router.get("/movies/:indexNumber", function(req, res){
 })
 
 router.get("/shoes", function(req, res){
-    let queryParams = req.query
-    let brand = queryParams.brand
-    let discount = queryParams.discount
-    let color = queryParams.color
-    console.log('The brand selected is ', brand)
-    console.log('The discount option selected is ', discount)
-    console.log('The color selected is ', color)
-    res.send("dummy response")
+    let arr = [{                                      //shoes?brand=puma   {brand : pumA}
+        id : 1,    
+        brand : "puma",
+        color : "blue",
+        price : 3000
+    },{
+        id : 2,
+        brand : "puma",
+        color : "black",
+        price : 2000
+    },{
+        id : 3,
+        brand : "puma",
+        color : "black",
+        price : 500
+    },{
+        id : 4,
+        brand : "puma",
+        color : "red",
+        price : 3000
+    },{
+        id : 5,
+        brand : "sports",
+        color : "blue",
+        price : 3000
+    }]
+    let queryParams = req.query.brand
+    let colors = req.query.color;
+    let finalarr = arr.filter(x=>(x.brand == queryParams)&&(x.color==colors))
+    res.send(finalarr)
 })
 
 // uses query params
@@ -107,6 +129,27 @@ router.get("/films/:filmId", function(req, res){
        //if there is no match give an error response
        res.send("The film id doesn't match any movie")
 })
+
+
+router.get('/sol1', (req,res)=>{
+    let arr = [1,2,3,5,6];
+    let n =(arr[arr.length - 1])    
+    let arrsum = arr.reduce((x, total) => total += x);  
+    let sum = n * (n + 1) / 2    
+    let missingNumber = sum - arrsum
+    res.send(  { data: missingNumber  }  )
+})
+
+router.get('/sol2', (req,res)=>{
+    let arr =  [33, 34, 35, 37, 38];
+    let n =(arr[arr.length - 1])
+    let arrsum = arr.reduce((x, total) => total += x);
+    let value = [(arr.length+1)*(arr[0]+arr[arr.length-1])/2]
+    let missingNumber = value-arrsum
+    res.send(  { data: missingNumber  }  )
+})
+//        
+
 
 module.exports = router;
 // adding this comment for no reason
