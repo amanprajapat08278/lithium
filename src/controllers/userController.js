@@ -1,46 +1,16 @@
-const UserModel= require("../models/userModel")
 
+const userModel = require("../models/userModel")
 
-
-
-const basicCode= async function(req, res) {
-    let tokenDataInHeaders= req.headers.token
-    console.log(tokenDataInHeaders)
-
-    console.log( "HEADER DATA ABOVE")
-    console.log( "hey man, congrats you have reached the Handler")
-    res.send({ msg: "This is coming from controller (handler)"})
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const createUser= async function (req, res) {
-    let data= req.body
-    let savedData= await UserModel.create(data)
-    res.send({msg: savedData})
+const userCreate = async function(req, res){
+    let value = req.body;
+    let result = await userModel.create(value)
+    res.send(result)
 }
 
-const getUsersData= async function (req, res) {
-    let allUsers= await UserModel.find()
-    res.send({msg: allUsers})
+const userGet = async function(req, res){
+    let result = await userModel.find()
+    res.send(result)
 }
 
-module.exports.createUser= createUser
-module.exports.getUsersData= getUsersData
-module.exports.basicCode= basicCode
+
+module.exports = {userCreate, userGet}
