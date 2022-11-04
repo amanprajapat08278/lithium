@@ -1,4 +1,4 @@
-const { default: mongoose } = require("mongoose");
+const { default: mongoose, isValidObjectId } = require("mongoose");
 const productModel = require("../models/Product")
 const userModel = require("../models/User")
 const orderModel = require("../models/Order")
@@ -43,9 +43,9 @@ const getUserApi = async function(req, res){
 const createOrderApi = async function(req,res){
 
     let data = req.body;
-    
     const { userId, productId } = data;
-
+    
+    //If User and Product id is missing---
     if (!userId) {
         res.send("Please Enter the userId ID")
     }
@@ -53,39 +53,27 @@ const createOrderApi = async function(req,res){
         res.send("Please Enter the productId ID")
     }
 
-
-    //if userId id wrong---------------------------------------------
-    let sum = 0;
-    let x = await userModel.find()
-    x.forEach(x => {
-
-        if (x._id != userId) {
-            sum += 1
-        };
-
-    });
-    if (sum == x.length) {
-        return res.send("please enter a valid userId id");
-
-    };
-
-    //if productId id wrong------------------------------------------
-    let total = 0;
-    let arr = await productModel.find()
-    arr.forEach(x => {
-
-        if (x._id != productId) {
-            total += 1
-        };
-
-    });
-    if (total == arr.length) {
-        return res.send("please enter a valid productId id")
-
-    };
-
-//---------------------------------------------------------------//
+    //If user and product id is wrong---
+    if(!isValidObjectId(userId)){
+        return res.send("Please Enter correct userId ID")
+    }
+    if(!isValidObjectId(productId)){
+        return res.send("Please enter a correct productId")
+    }
     
+    //If no product and user presnet ini collection---
+    let userData = await userModel.findById(userId)
+    if(!userData){
+        res.send("user is not present")
+    }
+
+    let productData = await productModel.findById(productId)
+    if(!productData){
+        res.send("product is not present")
+    }
+    
+
+
     if(req.isFreeAppUse==true){
         data.amount=0
         data.isFreeAppUser=req.isFreeAppUse
@@ -94,8 +82,6 @@ const createOrderApi = async function(req,res){
         res.send(result)
 
     }else{
-
-      
         let product  =await productModel.findById(productId)
         let user = await userModel.findById(userId)
         let price = product.price;
@@ -121,8 +107,6 @@ const getOrderApi = async function(req, res){
 
     let result = await orderModel.find().populate("userId").populate("productId")
     res.send(result)
-    
-    
 }
 
 
