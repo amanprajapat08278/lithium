@@ -3,6 +3,8 @@ const router = express.Router()
 const controller = require("../controller/controller")
 const middleware = require("../middleware/middleware")
 
+
+
 router.post("/users", controller.resisterApi)
 router.post("/login", controller.loginApi)
 
