@@ -1,0 +1,24 @@
+{
+  "name": "lithium",
+  "version": "1.0.0",
+  "description": "node-corn library for schedule time",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amanprajapat08278/lithium.git"
+  },
+  "author": "Aman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amanprajapat08278/lithium/issues"
+  },
+  "homepage": "https://github.com/amanprajapat08278/lithium#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-cron": "^3.0.2",
+    "nodemon": "^2.0.20"
+  }
+}
